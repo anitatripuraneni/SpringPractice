@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	default-init-method="onCreate" default-destroy-method="onDestroy"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+	default-autowire="byName" default-autowire-candidates="consoleWriter,fileWriter" >
+
+	<bean id="person" class="com.spring.practice.Person" scope="singleton"
+		factory-method="getInstance" >
+
+		<constructor-arg value="777" name="id" type="int"></constructor-arg>
+		<constructor-arg value="Anita" name="name" type="String"></constructor-arg>
+
+		<property name="empNo" value="888">
+		
+		</property>
+		<property name="empName" value="Anita"></property>
+		<property name="address" ref="address"></property>
+	</bean>
+	<bean id="personFactory" class="com.spring.practice.PersonFactory">
+	</bean>
+	<bean id="person1" class="com.spring.practice.Person" scope="singleton"
+		factory-method="createPerson" factory-bean="personFactory">
+
+		<constructor-arg value="777" name="id" type="int"></constructor-arg>
+		<constructor-arg value="Anita" name="name" type="String"></constructor-arg>
+
+		<property name="empNo" value="888"></property>
+		<property name="empName" value="Anita"></property>
+		<property name="address" ref="address"></property>
+	</bean>
+	<bean id="address" class="com.spring.practice.Address" scope="singleton" >
+		<constructor-arg name="street" value="abc street" ></constructor-arg>
+		<constructor-arg name="postalCode" value="00876"></constructor-arg>
+		<property name="city" value="Hyderabad" ></property>
+		<property name="county" value="Telangana"></property>
+	</bean>
+	<bean id="address1" class="com.spring.practice.Address" p:street="xyz street"
+		p:postalCode="87654">
+
+		<property name="city" value="Hyderabad"></property>
+		<property name="county" value="Telangana"></property>
+	</bean>
+
+	<bean id="fruitBasket" class="com.spring.practice.FruitBasket">
+		<constructor-arg name="name" value="Anita's Basket"></constructor-arg>
+		<constructor-arg name="fruits">
+			<list>
+				<value>Apple</value>
+				<value>Mango</value>
+				<value>Strawberry</value>
+				<value>Kiwi</value>
+				<value>Orange</value>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<bean id="jungle" class="com.spring.practice.Jungle">
+		<constructor-arg name="largest">
+			<bean id="elephant" class="com.spring.practice.Animal">
+				<property name="name" value="Bob"></property>
+				<property name="type" value="elephant"></property>
+			</bean>
+		</constructor-arg>
+		<constructor-arg name="animals">
+			<set>
+				<ref bean="tiger" />
+				<ref bean="lion" />
+			</set>
+
+		</constructor-arg>
+	</bean>
+	<bean id="tiger" class="com.spring.practice.Animal">
+		<property name="name" value="John"></property>
+		<property name="type" value="tiger"></property>
+	</bean>
+	<bean id="lion" class="com.spring.practice.Animal">
+		<property name="name" value="Richard"></property>
+		<property name="type" value="Lion"></property>
+	</bean>
+	<bean id="food" class="com.spring.practice.Food">
+		<property name="foods">
+			<!-- <props> <prop key="Monkey">banana</prop> <prop key="Panda">Raddish</prop> 
+				<prop key="Bear">Water Melon</prop> </props> -->
+			<map>
+				<entry key="Monkey" value="Banana"></entry>
+				<entry key="Panda" value="Raddish"></entry>
+				<entry key="Bear" value="Water Melon"></entry>
+
+			</map>
+		</property>
+		<property name="animals">
+			<map>
+				<entry key="tiger" value-ref="tiger"></entry>
+				<entry key="lion" value-ref="lion"></entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="consoleWriter" class="com.spring.practice.ConsoleWriter"></bean>
+	<bean id="fileWriter" class="com.spring.practice.FileWriter"></bean>
+	<!-- <bean id ="writer" class="com.spring.practice.Writer" autowire="byType"></bean> -->
+	<!-- <bean id ="writer" class="com.spring.practice.Writer" autowire="byName"></bean> -->
+	<bean id="writer" class="com.spring.practice.Writer" ></bean>
+</beans>

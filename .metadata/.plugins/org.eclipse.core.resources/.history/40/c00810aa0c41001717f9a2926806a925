@@ -1,0 +1,23 @@
+package com.spring.practice.dao;
+
+import java.util.List;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class EmpHibApp {
+
+	public static void main(String[] args) {
+		ApplicationContext con = new ClassPathXmlApplicationContext("com/spring/practice/beans/DaoBeans.xml");
+		EmployeeDao emp = (EmployeeDao) con.getBean("employeeDao");
+		List<Employee> empList = emp.empDetails();
+
+		for (Employee empdetails : empList) {
+			System.out.println("Employee [ id: " + empdetails.getId() + " name: " + empdetails.getName() + " email: "
+					+ empdetails.getEmail() + " text: " + empdetails.getText() + "]");
+
+		}
+
+	}
+
+}

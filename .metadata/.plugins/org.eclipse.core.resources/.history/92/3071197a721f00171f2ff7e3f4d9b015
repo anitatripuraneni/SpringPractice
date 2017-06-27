@@ -1,0 +1,21 @@
+package com.spring.practice.dao;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+public class OffHibApp2 {
+
+	public static void main(String[] args) {
+		ApplicationContext con = new ClassPathXmlApplicationContext("com/spring/practice/beans/DaoBeans.xml");
+		OfficeDao emp = (OfficeDao) con.getBean("officeDao");
+		Office emp3=new Office(1,"nani","nani@xyz.com","nani address");
+		Employee emp4 = new Employee("cherry","cherry@xyz.com","cherry address");
+		Employee emp5 = new Employee("chotu","chotu@xyz.com","chotu address");
+		Integer empList = emp.create(emp3);
+		System.out.println(empList);
+
+		
+
+	}
+
+}
